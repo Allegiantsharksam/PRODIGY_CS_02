@@ -6,27 +6,17 @@ class ImageEncryptor:
         self.key = key
 
     def encrypt(self, image_path, encrypted_image_path):
-        # Load the image
         img = Image.open(image_path)
-        # Convert the image to numpy array
         img_array = np.array(img)
-        # Perform a simple pixel manipulation operation
         encrypted_img_array = (img_array + self.key) % 256
-        # Convert the numpy array back to an image
         encrypted_img = Image.fromarray(np.uint8(encrypted_img_array))
-        # Save the encrypted image
         encrypted_img.save(encrypted_image_path)
 
     def decrypt(self, encrypted_image_path, decrypted_image_path):
-        # Load the encrypted image
         encrypted_img = Image.open(encrypted_image_path)
-        # Convert the image to numpy array
         encrypted_img_array = np.array(encrypted_img)
-        # Perform the inverse of the pixel manipulation operation
         decrypted_img_array = (encrypted_img_array - self.key) % 256
-        # Convert the numpy array back to an image
         decrypted_img = Image.fromarray(np.uint8(decrypted_img_array))
-        # Save the decrypted image
         decrypted_img.save(decrypted_image_path)
 
 def main():
